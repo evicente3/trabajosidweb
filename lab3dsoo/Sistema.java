@@ -5,110 +5,144 @@ public class Sistema{
     private ArrayList<Curso> cursos=new ArrayList();
     private HashMap<String,Integer> promediosalumnos=new HashMap<>();
         //registrarAlumnos(); registra los alumnos al sistema
-    public void registrarAlumnos(){
-        System.out.println("Registrando alumnos al sistema");
-        Scanner leer=new Scanner(System.in);
-        System.out.println("ingrese la cantidad de alumnos que quiere registrar ");
-        int numerodealumnos=leer.nextInt();
-        for(int i=0;i<numerodealumnos;i++){
-        System.out.println("ingrese el nombre del alumno :"+(+i+1));    
-        String nombre=leer.nextLine();
-        if(nombre!=null&& nombre instanceof String){     
+   public void registrarAlumnos() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("----Registro Alumno ----");
+        while (true) { 
+        System.out.println("Introducir el numero de alumnos");
+        int numeroAlumnos = sc.nextInt();
+        System.out.println();
+        sc.nextLine();
+        if(ValidadNumeroEntrada(numeroAlumnos)){
+        for (int i = 0; i < numeroAlumnos; i++) {
+            String nombreAlumno = solicitarDato("Introducir Nombre del alumno " + (i+1)+" : ", "texto");
+            String apellidoAlumno = solicitarDato("Introducir Apellidos del alumno "+ (i+1)+" : ", "texto");
+            String cuiUnico = solicitarDato("Introducir CUI del alumno "+ (i+1)+" : ", "texto");
+            System.out.println();
+        Alumno alumno = new Alumno(apellidoAlumno, cuiUnico, nombreAlumno);
+        alumnos.add(alumno);
         }
-        else {
-            System.out.println("nombre no valido, ingrese de nuevo");
-            nombre=leer.nextLine();
-         }
-        System.out.println("ingrese el apellido del alumno :"+(+i+1));    
-        String apellido=leer.nextLine();
-        if(apellido!=null&& apellido instanceof String){
+        break;
+        }else{
+            System.out.println("Numero invalido introducir Numero de Alumnos");
+            }
         }
-                else {
-            System.out.println("apellido no valido, ingrese de nuevo");
-            apellido=leer.nextLine();
-         }
-        System.out.println("ingrese el codigo del alumno :"+(+i+1));    
-        String codigounico=leer.nextLine();
-        if(codigounico!=null&& codigounico instanceof String){
-        }
-                else {
-            System.out.println("codigo no valido, ingrese de nuevo");
-            codigounico=leer.nextLine();
-         }
-         Alumno nuevoalumno= new Alumno(nombre,apellido,codigounico);
-        alumnos.add(nuevoalumno);
-        System.out.println("alumno registrado exitosamente al sistema"); 
-    } }
+    }
         //registrarDocentes() registra los docentes al sistema
-    public void registrarDocente(){
-        System.out.println("registrando docentes al sistema");
-        Scanner leer=new Scanner(System.in);
-        System.out.println("ingrese el nombre del docente");
-        String nombredocente=leer.nextLine();
-        System.out.println("ingrese el apellido del docente");
-        String apellidocdocente=leer.nextLine();
-        System.out.println("ingrese la especialidad del docente");
-        String especialidaddocente=leer.nextLine();
-        System.out.println("ingrese el dni del docente");
-        String dnidocente=leer.nextLine();
-        System.out.println("ingrese la experiencia del docente");
-        String experienciadocdocente=leer.nextLine();
-        Docente docente=new Docente(dnidocente, nombredocente, especialidaddocente, experienciadocdocente);
+   public void registrarDocentes() {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n---Registro Docente ---");
+        while (true) { 
+        System.out.println("Introducir el numero de Docentes");
+        int numeroDocentes = sc.nextInt();
+        sc.nextLine();
+        if(ValidadNumeroEntrada(numeroDocentes)){
+        for (int i = 0; i < numeroDocentes; i++) {
+            String nombreDocente = solicitarDato("Introducir Nombre del docente "+ (i+1)+" : ", "texto");
+            String apellidoDocente = solicitarDato("Introducir Apellido del docente "+ (i+1)+" : ", "texto");
+            String especialidadDocente = solicitarDato("Especialidad del docente: "+ (i+1)+" : ", "texto");
+            System.out.println("Introducir los Años de experiencia :");
+            int añosDocente = sc.nextInt();
+            sc.nextLine();
+            String dniDocente = solicitarDato("Introducir el DNI del docente: "+ (i+1)+" : ", "texto");
+            System.out.println();
+        Docente docente = new Docente(apellidoDocente, añosDocente, dniDocente, especialidadDocente, nombreDocente);
         docentes.add(docente);
-        System.out.println("docente registrando exitosamente al sistema");
+        }
+        break;
+        }else{
+            System.out.println("Numero invalido Introducir Numero de docentes");
+            }
+        }
     }
         //registrarCursos()registra cursos disponibles al sistema
-        public void registrarCurso(){
-        System.out.println("Registrando cursos al sistema");
-        Scanner leer=new Scanner(System.in);
-        System.out.println("ingrese el nombre del curso");
-        String nombrecurso=leer.nextLine();
-        System.out.println("ingrese el codigo del curso");
-        String codigocurso=leer.nextLine();
-        System.out.println("ingrese el dni del docente asociado");
-        String dnidocentededicado=leer.nextLine();
-        for(Docente d:docentes) {
-            if(dnidocentededicado.equals(d.getDni())){
-                System.out.println("docente habilitado");
-            }
-            else{
-                System.out.println("docente no habilitado, ingrese uno valido");
-               dnidocentededicado=leer.nextLine();
-            }}
-      Curso curso=new Curso(nombrecurso, codigocurso,dnidocentededicado);
-      cursos.add(curso);
-        System.out.println("curso registrado exitosamente al sistema");  
+       public void registrarCursos () {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n---Registro Cursos---");
+        System.out.println("Introducir el numero de cursos ");
+        int numeroCursos = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < numeroCursos; i++) {
+            String nombrecurso= solicitarDato("Introducir Nombre del curso "+ (i+1)+" : ", "texto");
+            String codigoCurso = solicitarDato("Intrdocuir Codigo de Curso "+ (i+1)+" : ", "texto");
+            String dnidoncentededicado =solicitarDato("Introducir Dni del docende asignado "+ (i+1)+" : ", "texto");
+        
+        Curso curso = new Curso(nombrecurso, codigoCurso, dnidoncentededicado);
+        cursos.add(curso);
+        }
     }
+    public boolean ValidadNumeroEntrada(int numero){
+        return numero>0 ;
+    }
+    public boolean ValidarTexto(String texto){
+        return  texto !=null && !texto.isEmpty();
+    }
+    private String solicitarDato(String mensaje, String tipoValidacion) {
+    Scanner sc = new Scanner(System.in);
+    String dato;
+    while (true) {
+        System.out.print(mensaje);
+        dato = sc.nextLine();
+        
+        switch (tipoValidacion) {
+            case "texto":
+                if (ValidarTexto(dato)) return dato;
+                System.out.println("No puede estar vacio");
+                break;
+                                                }
+                }
+    }
+
+
     // matricularAlumnos() matricula alumnos a cursos
-    public void matricularAlumnos(){
-    System.out.println("Matriculando alumnos a cursos");
-    Scanner leer=new Scanner(System.in);
-    System.out.println("ingrese nombre del alumno");
-    String nombre=leer.nextLine();
-    System.out.println("ingrese apellido del alumno");
-    String apellido=leer.nextLine();
-    System.out.println("ingrese codigo del alumno");
-    String codigounico=leer.nextLine();
-    for (Alumno alumnoindice:alumnos){
-    if (codigounico.equals(alumnoindice.getCodigo())){
-    System.out.println("alumno habilitado"); 
+   // ...existing code...
+public void matricularAlumnos() {
+    Scanner leer = new Scanner(System.in);
+    if (alumnos.isEmpty() || cursos.isEmpty()) {
+        System.out.println("Debe haber alumnos y cursos registrados para matricular.");
+        return;
     }
-    else{
-    System.out.println("alumno no habilitado, ingrese uno valido");
-    codigounico=leer.nextLine();
-    }}
-    Alumno alumnomatricular=new Alumno(nombre, apellido, codigounico);
-    System.out.println("ingrese el nombre del curso a matricular ");
-    String nombredecurso=leer.nextLine();
-    for (Curso cursoindice:cursos){
-    if (nombredecurso.equals(cursoindice.getNombreCurso())){
-    System.out.println("curso habilitado");
-    cursoindice.agregarAlumno(alumnomatricular.getNombre());
-    alumnomatricular.agregarCurso(cursoindice.getNombreCurso()); 
-    break;
+    System.out.println("Matriculando todos los alumnos a al menos un curso ");
+    for (Alumno alumno : alumnos) {
+        System.out.println("\nAlumno: " + alumno.getNombre() + " " + alumno.getApellido() + " (" + alumno.getCodigo() + ")");
+        boolean matriculado = false;
+        while (!matriculado) {
+            System.out.println("Cursos disponibles:");
+            for (Curso curso : cursos) {
+                System.out.println("- " + curso.getNombreCurso() + " (Código: " + curso.getCodigoCurso() + ")");
+            }
+            System.out.print("Ingrese el CÓDIGO del curso para matricular al alumno (debe ser exacto): ");
+            String codigoCurso = leer.nextLine();
+            boolean cursoEncontrado = false;
+            for (Curso curso : cursos) {
+                if (curso.getCodigoCurso().equals(codigoCurso)) {
+                    curso.agregarAlumno(alumno.getCodigo());
+                    alumno.agregarCurso(curso.getNombreCurso());
+                    System.out.println("Alumno matriculado en: " + curso.getNombreCurso());
+                    cursoEncontrado = true;
+                    matriculado = true;
+                    break;
+                }
+            }
+            if (!cursoEncontrado) {
+                System.out.println("Código de curso no encontrado. Intente nuevamente.");
+            }
+        }
     }
-    System.out.println("alumno:"+alumnomatricular.getNombre()+"matriculado en :"+cursoindice);
-    }}
+}
+     //registrarnotasparatodoslosalumnos() registra notas de alumnos por curso
+    public void registrarNotasParaTodosLosAlumnos() {
+    System.out.println("---Registrando notas para todos los alumnos---");
+    for (Alumno a : alumnos) {
+        System.out.println("Alumno: " + a.getNombre() + " " + a.getApellido() + " (" + a.getCodigo() + ")");
+        a.agregarNotasACurso();
+    }
+}
     //registrarnotas() registra notas de alumnos por curso
     public void registrarNotasPorAlumno() {
     System.out.println("Registrando notas por alumno");
@@ -138,22 +172,35 @@ public class Sistema{
     }
 }
     //promediomayorAlumnos() calcula el alumno con mayor promedio
-    public void promediomayorAlumnos() {
+   public void promediomayorAlumnos() {
     System.out.println("calculando el alumno con mayor promedio");
     if (promediosalumnos.isEmpty()) {
         System.out.println("No hay promedios calculados.");
         return;
     }
-    String alumnoConMayorPromedio = null;
+    String codigoAlumnoConMayorPromedio = null;
     int mayorPromedio = 0;
     for (String codigo : promediosalumnos.keySet()) {
         int promedio = promediosalumnos.get(codigo);
         if (promedio > mayorPromedio) {
             mayorPromedio = promedio;
-            alumnoConMayorPromedio = codigo;
+            codigoAlumnoConMayorPromedio = codigo;
         }
     }
-    System.out.println("El alumno con mayor promedio es: " + alumnoConMayorPromedio + " con un promedio de: " + mayorPromedio);
+    // Buscar el alumno en la lista
+    Alumno alumnoMayor = null;
+    for (Alumno a : alumnos) {
+        if (a.getCodigo().equals(codigoAlumnoConMayorPromedio)) {
+            alumnoMayor = a;
+            break;
+        }
+    }
+    if (alumnoMayor != null) {
+        System.out.println("El alumno con mayor promedio es: " + alumnoMayor.getNombre() + " " + alumnoMayor.getApellido() +
+                " (" + alumnoMayor.getCodigo() + ") con un promedio de: " + mayorPromedio);
+    } else {
+        System.out.println("El alumno con mayor promedio es: " + codigoAlumnoConMayorPromedio + " con un promedio de: " + mayorPromedio);
+    }
 }
     //condicionAlumnos() crea un hashmap con los alumnos aprobados y desaprobados
  public void condicionAlumnos() {

@@ -16,8 +16,8 @@ public String getCodigoCurso(){
     return codigodecurso;
 }
 public void agregarAlumno(String nombrealumno){
-    alumnosmatriculados.add(nombrealumno);    
-}
+    alumnosmatriculados.add(nombrealumno);   
+ }
 public String getNombreCurso(){
     return nombredecurso;
 }
